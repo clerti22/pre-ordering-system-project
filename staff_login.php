@@ -14,31 +14,34 @@
     <img src="png files/smcc logo.png" alt="" height="208">
     <div class="mainBody">
 
-      <div class="container-fluid con">
-        <form action="staff_login.php" method="POST" class="">
-          <h1>Staff Login</h1>
-          <label for="">Email: </label>
-          <div class="input-group input-group-sm mb-3">
-            <input type="email" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-sm" name="emailz" required>
-          </div>
-          <br>
-          <label for="">Password:</label>
-          <div class="input-group input-group-sm mb-3">
-            <input type="password" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-sm" name="passw" id="passw" required>
-          </div>
+      <div class="container-fluid ">
+        <div class="con">
+          <form action="staff_login.php" method="POST" class="">
+            <h1 class="text-center">Staff Login</h1>
+            <label for="">Email: </label>
+            <div class="input-group input-group-sm mb-3">
+              <input type="email" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-sm" name="emailz" required>
+            </div>
+            <br>
+            <label for="">Password:</label>
+            <div class="input-group input-group-sm mb-3">
+              <input type="password" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-sm" name="passw" id="passw" required>
+            </div>
 
-          <input type="checkbox" id="checkboxz">
-          <label for="">Show Password</label>
-          <br><br>
+            <input type="checkbox" id="checkboxz">
+            <label for="">Show Password</label>
+            <br><br>
 
-          <input class="btn btn-primary submitBtn" type="submit" value="Submit">
+            <input class="btn btn-primary submitBtn" type="submit" value="Submit">
 
-          <div class="bottom text text-center">
-            <p>Don't have account? <a href="staff_register.php" style="color: #2EB56B; text-decoration: none;">Register Here</a></p>
-          </div>
+            <div class="bottom text text-center">
+              <p>Don't have account? <a href="staff_register.php" style="color: #2EB56B; text-decoration: none;">Register Here</a></p>
+            </div>
 
 
-        </form>
+          </form>
+        </div>
+
       </div>
     </div>
   </div>
