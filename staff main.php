@@ -89,17 +89,42 @@
       <div class="container-fluid">
         <h3 class="headText">All Your Products</h3>
         <div class="searchArea">
-          <input type="text">
-          <button class="searchBtn">Search</button>
+          <input type="number" id="searchInpt" name="searchInpt" class="inptSearch">
+          <button class="searchBtn" id="searchBtn">Search</button>
 
           <a href="add_product.php?id=<?php echo urlencode($id_num); ?>" class="addBtn">Add Product</a>
-
-
         </div>
 
+        <script>
+          document.getElementById('searchBtn').addEventListener("click",function(){
+            let proID = document.getElementById('searchInpt').value;
+            let table = document.getElementById('tableSec');
+            let formD = new FormData();
+
+
+            formD.append('num',proID);
+            let xhr = new XMLHttpRequest();
+
+            xhr.open("POST","search pro.php", true);
+
+            xhr.onload = function(){
+              if(xhr.status == 200){
+                table.innerHTML = xhr.responseText;
+                console.log('Data Sent\nProcessing...');
+                
+              }
+              else{
+                console.log(xhr.status);
+              }
+            }
+
+
+            xhr.send(formD);
+          });
+        </script>
 
         <article class="tableSec">
-          <table class="table table-striped">
+          <table class="table table-striped" >
             <thead>
               <tr>
                 <th scope="col">Product ID</th>
@@ -110,7 +135,7 @@
                 <th scope="col">Actions</th>
               </tr>
             </thead>
-            <tbody>
+            <tbody id="tableSec">
 
               <?php
               include('db.php');
@@ -152,6 +177,7 @@
   <script>
     function showAttachment(src) {
         document.getElementById('attachmentImage').src = src;
+        console.log(src);
         document.querySelector('.showPicture').style.display = 'block';
     }
 

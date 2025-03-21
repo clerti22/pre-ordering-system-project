@@ -64,8 +64,6 @@
 <?php
 error_reporting(0);
 
-
-
 if (isset($_POST['doneBtn'])) {
   $id_n = $_POST['productId'];
   $pro_name = $_POST['productName'];

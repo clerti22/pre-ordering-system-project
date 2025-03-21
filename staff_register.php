@@ -1,5 +1,3 @@
-
-
 <!DOCTYPE html>
 <html lang="en">
 
@@ -35,7 +33,7 @@
           </div>
           <div class="col-md-12">
             <label for="inputAddress" class="form-label">Address</label>
-            <input type="text" class="form-control" id="inputAddress" name="inputAdd" placeholder="1234 Main St">
+            <input type="text" class="form-control" id="inputAddress" name="inputAdd">
           </div>
           <div class="col-md-6 ">
             <label for="inputPassword4" class="form-label">Gender</label>
@@ -70,8 +68,8 @@
               <option value="Triangulo">Triangulo</option>
             </select>
           </div>
-          <div class="col-12">
-            <input type="submit" class="btn btn-primary" value="Register"> 
+          <div class="col-12 d-flex justify-content-center align-items-center">
+            <input type="submit" class="btn btn-primary subBtn" value="Register"> 
           </div>
         </form>
       </div>

@@ -9,10 +9,8 @@ body{
 .main{
   flex-direction: column;
   padding: 2em;
-  height: 100vh;
+  height: auto;
 }
-
-
 
 
 .container{
@@ -23,8 +21,6 @@ body{
   border-radius: 10px;
 
 }
-
-
 .container h1{
   text-align: center;
   font-weight: bold;
@@ -47,4 +43,27 @@ body{
 .gender{
   margin-left: 5em;
   
+}
+
+.mainConfirm{
+  visibility: hidden;
+  display:flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  position: fixed;
+  top: 0;
+  height: 100%;
+  width: 100%;
+  background-color: #12004a9f;
+}
+
+.choicesBtn{
+  flex-direction: row;
+}
+
+
+.confM{
+  margin: 2em;
+  border-radius: 2em;
 }
