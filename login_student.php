@@ -76,6 +76,7 @@ if ($conn->connect_error) {
 
     if($result->fetch_assoc()){
       header("Location: student main.php?num=$id_num");
+      exit();
     }
     else{
       echo "<script> alert('Wrong id number or password'); </script>";
