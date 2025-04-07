@@ -6,7 +6,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
   $sql = "DELETE FROM carts WHERE id_row = $id_row";
 
   if($conn->query($sql) === TRUE){
-    echo "Cart Deleted";
+    echo "<script> alert('Cart deleted'); </script>";
   }
 }
 

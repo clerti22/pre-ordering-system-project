@@ -25,7 +25,6 @@ body{
 }
 
 .cartI{
- display: flex;
  margin-right:90px;
 }
 
@@ -52,7 +51,6 @@ body{
 .pfp{
   margin-right:30px;
   margin-left:30px;
-
 }
 
 .contP{
@@ -84,20 +82,4 @@ body{
   cursor: pointer;
 
 }
-.btn-danger{
-  margin-top: 1em;
-}
 
-
-@media screen and (max-width: 991px){
-  .col-sm{
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-  }
-  .searchArea{
-    margin-top: 1em;
-    margin-bottom: 1em;
-  }
-}

@@ -1,0 +1,105 @@
+<!-- <!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Real-Time Timer</title>
+  <style>
+    #timer {
+      font-size: 2em;
+      font-family: Arial, sans-serif;
+    }
+  </style>
+</head>
+<body>
+  <div id="timer">00:00:00</div>
+
+  <script>
+    let seconds = 0;
+    let minutes = 0;
+    let hours = 0;
+
+    function updateTimer() {
+      // Increment the seconds
+      seconds++;
+      
+      // Check if seconds reaches 60 and reset it to 0 and increment minutes
+      if (seconds === 60) {
+        seconds = 0;
+        minutes++;
+      }
+
+      // Check if minutes reaches 60 and reset it to 0 and increment hours
+      if (minutes === 60) {
+        minutes = 0;
+        hours++;
+      }
+
+      // Format the time to be in the format 00:00:00
+      const formattedTime = formatTime(hours) + ':' + formatTime(minutes) + ':' + formatTime(seconds);
+
+      // Display the formatted time
+      document.getElementById('timer').innerText = formattedTime;
+    }
+
+    // Function to format time to always have two digits (e.g., 09 instead of 9)
+    function formatTime(time) {
+      return time < 10 ? '0' + time : time;
+    }
+
+    // Update the timer every second (1000ms)
+    setInterval(updateTimer, 1000);
+  </script>
+</body>
+</html> -->
+
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Countdown Timer</title>
+</head>
+<body>
+    <h1>Countdown Timer</h1>
+    <div id="timer"></div>
+
+    <script>
+        // Set initial countdown time (in seconds, e.g., 10 minutes)
+        const countdownTimeInSeconds = 10 * 60;
+
+        // Get the current countdown time from localStorage or set the initial countdown time
+        let countdownEndTime = localStorage.getItem("countdownEndTime");
+        
+        if (!countdownEndTime) {
+            // If no stored time, calculate the end time and store it
+            countdownEndTime = Date.now() + countdownTimeInSeconds * 1000;
+            localStorage.setItem("countdownEndTime", countdownEndTime);
+        }
+
+        // Function to update the countdown timer
+        function updateTimer() {
+            const currentTime = Date.now();
+            const timeRemaining = countdownEndTime - currentTime;
+
+            if (timeRemaining <= 0) {
+                // Countdown finished
+                document.getElementById('timer').textContent = "Time's up!";
+                clearInterval(timerInterval);
+            } else {
+                // Update the displayed countdown
+                const minutes = Math.floor(timeRemaining / 1000 / 60);
+                const seconds = Math.floor((timeRemaining / 1000) % 60);
+                document.getElementById('timer').textContent = `${minutes}:${seconds < 10 ? '0' : ''}${seconds}`;
+            }
+        }
+
+        // Update the timer every second
+        const timerInterval = setInterval(updateTimer, 1000);
+
+        // Call once initially to display the timer immediately
+        updateTimer();
+    </script>
+</body>
+</html>

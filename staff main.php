@@ -1,191 +1,170 @@
+<?php
+if (isset($_GET['num'])) {
+  $id_num = $_GET['num'];
+} ?>
+
 <!DOCTYPE html>
 <html lang="en">
 
 <head>
   <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>SMCC QuickBite - Canteen Staff Main Page</title>
-  <link rel="stylesheet" href="css/bootstrap.min.css">
+  <title>SMCC QuickBite - Staff Main</title>
+  <link href="https://cdn.lineicons.com/4.0/lineicons.css" rel="stylesheet" />
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/css/bootstrap.min.css" rel="stylesheet"
+    integrity="sha384-KK94CHFLLe+nY2dmCWGMq91rCGa5gtU4mk92HdvYe+M/SXH301p5ILy+dN9+nJOZ" crossorigin="anonymous">
   <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-icons/1.8.1/font/bootstrap-icons.min.css" rel="stylesheet">
   <link rel="stylesheet" href="staff main.css">
-
 </head>
 
 <body>
+  <div class="wrapper">
+    <aside id="sidebar">
+      <div class="d-flex">
+        <button class="toggle-btn" type="button">
+          <img src="png files/smcc logo.png" alt="" height="35" width="40">
+        </button>
+        <div class="sidebar-logo">
+          <a href="#">SMCC QuickBite</a>
+        </div>
+      </div>
+      <ul class="sidebar-nav">
+        <li class="sidebar-item">
+          <a href="dashboard staff.php?id=<?php echo $id_num?>" class="sidebar-link">
+            <i class="bi bi-grid-fill"></i>
+            <span>Dashboard</span>
+          </a>
 
-  <div class="sidebar">
-    <p><img src="png files/smcc logo.png" alt="" height="50" width="50"> <span class="smccText">SMCC QuickBite</span></p>
-    <nav class="nav flex-column">
+        </li>
 
-      <hr>
-      <a class="nav-link" href="#">
-        <span class="icon"><i class="bi bi-box-seam"></i></span>
-        <span class="description">Your Products</span>
-      </a>
-      <hr>
-
-      <a class="nav-link" href="#">
-        <span class="icon"><i class="bi bi-cart3"></i></span>
-        <span class="description">Orders</span>
-      </a>
-      <hr>
-
-      <a class="nav-link" href="#">
-        <span class="icon"><i class="bi bi-people"></i></span>
-        <span class="description">Customers Management</span>
-      </a>
-      <hr>
-
-      <a class="nav-link" href="#">
-        <span class="icon"><i class="bi bi-clipboard-data"></i></span>
-        <span class="description">Reports</span>
-      </a>
-      <hr>
-
-    </nav>
-  </div>
-
-
-  <div class="main">
-    <nav class="navbar">
-      <div class="container-fluid">
-        <a class="navbar-brand" href="#">
-          <i class="bi bi-person-circle"></i>
-
-          <?php
-          $servername = "127.0.0.1:3307";
-          $username = "root";
-          $password = "";
-          $dbname = "smcc_quickbiteDB";
-
-          $conn = new mysqli($servername, $username, $password, $dbname);
-
-
-          if ($conn->connect_error) {
-            die("Error Connection");
-          } else {
-            if (isset($_GET['num'])) {
-              $id_num = $_GET['num'];
-
-              $sql = "SELECT name FROM staff_datas WHERE staff_id = '$id_num'";
-
-              $result = $conn->query($sql);
-
-
-              if ($result->num_rows > 0) {
-                while ($row = $result->fetch_assoc()) {
-                  $nameF = $row["name"];
-                  echo "$nameF";
-                }
-              }
-            }
-          }
-          ?>
-
+        <li class="sidebar-item">
+          <a href="#" class="sidebar-link">
+            <i class="bi bi-box-seam"></i>
+            <span>Your Products</span>
+          </a>
+        </li>
+        <li class="sidebar-item">
+          <a href="orders staff.php?id=<?php echo $id_num ?>" class="sidebar-link">
+            <i class="bi bi-cart"></i>
+            <span>Orders</span>
+          </a>
+        </li>
+        <li class="sidebar-item">
+          <a href="#" class="sidebar-link">
+            <i class="lni lni-user"></i>
+            <span>Profile</span>
+          </a>
+        </li>
+      </ul>
+      <div class="sidebar-footer">
+        <a href="staff_login.php" class="sidebar-link">
+          <i class="lni lni-exit"></i>
+          <span>Logout</span>
         </a>
       </div>
-    </nav>
-    <div class="mainBody">
-      <div class="container-fluid">
-        <h3 class="headText">All Your Products</h3>
-        <div class="searchArea">
-          <input type="number" id="searchInpt" name="searchInpt" class="inptSearch">
-          <button class="searchBtn" id="searchBtn">Search</button>
+    </aside>
+    <div class="main p-3">
+      <div class="text-center">
+        <h1 style="font-size: 2.3rem;">
+          All your Products
+        </h1>
+      </div>
+      <div class="searchArea">
+        <input type="text" id="searchInpt" name="searchInpt" class="inptSearch" placeholder="Search Product">
+        <input type="hidden" id="idSeller" name="searchInpt" class="inptSearch" value="<?php echo $id_num ?>">
+        <button class="btn btn-outline-success searchBtn" id="searchBtn">Search</button>
 
-          <a href="add_product.php?id=<?php echo urlencode($id_num); ?>" class="addBtn">Add Product</a>
-        </div>
+        <a href="add_product.php?id=<?php echo urlencode($id_num); ?>" class="addBtn btn btn-primary">Add Product</a>
+      </div>
+      <script>
+        document.getElementById('searchBtn').addEventListener("click", function() {
+          let searchBar = document.getElementById('searchInpt').value;
+          let table = document.getElementById('tableSec');
+          let formD = new FormData();
 
-        <script>
-          document.getElementById('searchBtn').addEventListener("click",function(){
-            let proID = document.getElementById('searchInpt').value;
-            let table = document.getElementById('tableSec');
-            let formD = new FormData();
+
+          formD.append('searchItem', searchBar);
+          let xhr = new XMLHttpRequest();
+
+          xhr.open("POST", "search pro.php", true);
+
+          xhr.onload = function() {
+            if (xhr.status == 200) {
+              table.innerHTML = xhr.responseText;
+              console.log('Data Sent\nProcessing...');
+
+            } else {
+              console.log(xhr.status);
+            }
+          }
 
 
-            formD.append('num',proID);
-            let xhr = new XMLHttpRequest();
+          xhr.send(formD);
+        });
+      </script>
+      <article class="tableSec">
+        <table class="table table-striped" style="background-color: white;">
+          <thead>
+            <tr>
+              <th scope="col"></th>
+              <th scope="col">Product Details</th>
+              <th scope="col"></th>
 
-            xhr.open("POST","search pro.php", true);
+            </tr>
+          </thead>
+          <tbody id="tableSec">
 
-            xhr.onload = function(){
-              if(xhr.status == 200){
-                table.innerHTML = xhr.responseText;
-                console.log('Data Sent\nProcessing...');
-                
-              }
-              else{
-                console.log(xhr.status);
+            <?php
+            include('db.php');
+
+            if (isset($_GET['num'])) {
+              $id_num = $_GET['num'];
+            }
+            $sql = "SELECT product_id,product_name,product_price,product_qty,product_image from products_datas WHERE seller_id = $id_num";
+
+            $result = $conn->query($sql);
+
+            if ($result->num_rows > 0) {
+              while ($row = $result->fetch_assoc()) {
+                echo "<tr>";
+                echo "<td><img src='" . $row['product_image'] . "' height='120' width='120' ></td>";
+                echo "<td><span>" . $row['product_name'] . "</span><br>";
+                echo "<span> " . $row['product_price'] . "</span><br>";
+                echo "<span>" . $row['product_qty'] . "</span></td>";
+
+                echo "<td> <a class='btn btn-primary' style='background-color: gold;  border:none; color: black; margin-right: 10px'href='edit product.php?idpass=" . $row['product_id'] . "&seller=" . $id_num . "&pro_name=" . $row['product_name'] . "&pro_price=" . $row['product_price'] . "&qty=" . $row['product_qty'] . "&image=" . $row['product_image'] . " '>Edit</a><a href='delete product.php?ids= " . $row['product_id'] . "&seller=" . $id_num . "' class='btn btn-primary deleteBtn' style='background-color:red;  border:none; color: black;'>Delete</a></td>";
+                echo "</tr>";
               }
             }
 
-
-            xhr.send(formD);
-          });
-        </script>
-
-        <article class="tableSec">
-          <table class="table table-striped" >
-            <thead>
-              <tr>
-                <th scope="col">Product ID</th>
-                <th scope="col">Product Name</th>
-                <th scope="col">Product Price</th>
-                <th scope="col">Product Quantity</th>
-                <th scope="col">Product Image</th>
-                <th scope="col">Actions</th>
-              </tr>
-            </thead>
-            <tbody id="tableSec">
-
-              <?php
-              include('db.php');
+            ?>
+          </tbody>
+        </table>
 
 
-              $sql = "SELECT product_id,product_name,product_price,product_qty,product_image from products_datas WHERE seller_id = $id_num";
-
-              $result = $conn->query($sql);
-
-              if ($result->num_rows > 0) {
-                while ($row = $result->fetch_assoc()) {
-                  echo "<tr>";
-                  echo "<td> " . $row['product_id'] . "</td>";
-                  echo "<td> " . $row['product_name'] . "</td>";
-                  echo "<td> " . $row['product_price'] . "</td>";
-                  echo "<td> " . $row['product_qty'] . "</td>";
-                  echo "<td> <button onclick=\"showAttachment('" . $row['product_image'] . "')\" class='btn btn-primary'><i class='bi bi-eye'></i> Show Picture</button> </td>";
-                  echo "<td> <a class='btn btn-primary' style='background-color: gold;  border:none; color: black; margin-right: 10px'href='edit product.php?idpass=" . $row['product_id'] . "&seller=". $id_num ."&pro_name=". $row['product_name'] ."&pro_price=". $row['product_price'] . "&qty=". $row['product_qty'] ."&image=". $row['product_image'] ." '>Edit</a><a href='delete product.php?ids= ". $row['product_id']."&seller=". $id_num ."' class='btn btn-primary deleteBtn' style='background-color:red;  border:none; color: black;'>Delete</a></td>";
-                  echo "</tr>";
-                }
-              }
-
-              ?>
-            </tbody>
-          </table>
-
-          
-          <div class="showPicture" style="display: none; position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%); background: white; padding: 20px; box-shadow: 0 0 10px rgba(0,0,0,0.5);">
-            <img id="attachmentImage" src="" alt="Attachment" style="max-width: 500px; max-height: 500px;">
-            <button onclick="hideAttachment()" style="display: block; margin: 20px auto 0; padding: 10px 20px; background: #13004A; color: white; border: none; border-radius: 5px;">Close</button>
-          </div>
-        </article>
-
-      </div>
+        <div class="showPicture" style="display: none; position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%); background: white; padding: 20px; box-shadow: 0 0 10px rgba(0,0,0,0.5);">
+          <img id="attachmentImage" src="" alt="Attachment" style="max-width: 500px; max-height: 500px;">
+          <button onclick="hideAttachment()" style="display: block; margin: 20px auto 0; padding: 10px 20px; background: #13004A; color: white; border: none; border-radius: 5px;">Close</button>
+        </div>
+      </article>
     </div>
   </div>
-
-  <script src="js/bootstrap.bundle.min.js"></script>
   <script>
     function showAttachment(src) {
-        document.getElementById('attachmentImage').src = src;
-        console.log(src);
-        document.querySelector('.showPicture').style.display = 'block';
+      document.getElementById('attachmentImage').src = src;
+      console.log(src);
+      document.querySelector('.showPicture').style.display = 'block';
     }
 
     function hideAttachment() {
-        document.querySelector('.showPicture').style.display = 'none';
+      document.querySelector('.showPicture').style.display = 'none';
     }
   </script>
-
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/js/bootstrap.bundle.min.js"
+    integrity="sha384-ENjdO4Dr2bkBIFxQpeoTz1HIcje39Wm4jDKdf19U8gI4ddQ3GYNS7NTKfAdVQSZe"
+    crossorigin="anonymous"></script>
+  <script src="script.js"></script>
 </body>
 
 </html>
