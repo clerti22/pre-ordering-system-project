@@ -1,9 +1,10 @@
 <?php
 error_reporting(0);
-if (isset($_POST['num'])) {
-  $pro_id = $_POST['num'];
+if (isset($_POST['searchItem'],$_POST['id_num'])) {
+  $itemSearch = $_POST['searchItem'];
+  $sell_id = $_POST['id_num'];
   include('db.php');
-  $sql = "SELECT product_id,seller_id,product_name,product_price,product_qty,product_image FROM products_datas WHERE product_id = $pro_id";
+  $sql = "SELECT * FROM products_datas where seller_id = $sell_id AND product_name LIKE '$itemSearch%'; ";
 
   $result = $conn->query($sql);
 
@@ -18,5 +19,8 @@ if (isset($_POST['num'])) {
       echo "<td> <a class='btn btn-primary' style='background-color: gold;  border:none; color: black; margin-right: 10px'href='edit product.php?idpass=" . $row['product_id'] . "&seller=". $id_num ."&pro_name=". $row['product_name'] ."&pro_price=". $row['product_price'] . "&qty=". $row['product_qty'] ."&image=". $row['product_image'] ." '>Edit</a><a href='delete product.php?ids= ". $row['product_id']."&seller=". $id_num ."' class='btn btn-primary deleteBtn' style='background-color:red;  border:none; color: black;'>Delete</a></td>";
       echo "</tr>";
     }
+  }
+  else{
+    echo "<h1>No results</h1>";
   }
 }

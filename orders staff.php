@@ -73,11 +73,39 @@ if (isset($_GET['id'])) {
 
             </div>
             <div class="searchArea" style="margin-bottom:1em;">
-                <input type="number" id="searchInpt" name="searchInpt" class="inptSearch">
+                <input type="hidden" id="idVal" name="searchInpt" class="inptSearch" value="<?php echo $id_num ?>">
+                <input type="text" id="searchItem" name="searchInpt" class="inptSearch">
                 <button class="btn btn-outline-success searchBtn" id="searchBtn">Search</button>
 
 
             </div>
+
+            <script>
+                document.getElementById('searchBtn').addEventListener("click", (event) => {
+                    let item = document.getElementById('searchItem').value;
+                    let idNum = document.getElementById('idVal').value;
+                    let table = document.getElementById('tableSec');
+
+                    let formD = new FormData();
+
+                    formD.append('valueItem',item);
+                    formD.append('id',idNum);
+
+                    let xhr = new XMLHttpRequest();
+
+                    xhr.open('POST','search order(staff).php',true);
+
+                    xhr.onload = ()=>{
+                        if(xhr.status == 200){
+                            table.innerHTML = xhr.responseText;
+                        }
+                        else{
+                            console.log(xhr.status);
+                        }
+                    }
+                    xhr.send(formD);
+                });
+            </script>
 
             <article class="tableSec">
                 <table class="table table-striped" style="background-color: white;">
@@ -124,7 +152,7 @@ if (isset($_GET['id'])) {
                                     echo "<span>Quantity: " . $row['product_qty'] . "</span><br>";
                                     echo "<span>Customer Name: " . $row['id_number'] . "</span><br>";
                                     echo "<div style='display:flex; gap:10px; flex-wrap:wrap;'>";
-                                    echo "<button class='btn btn-success' onclick='pickupBtn(". $row['id_number'] .", ". $id_num .",".$row['id_row']  .", \"" . addslashes($row['seller_name']) . "\",\"" . addslashes($row['product_name']) . "\")'>Pickup Done</button>";
+                                    echo "<button class='btn btn-success' onclick='pickupBtn(" . $row['id_number'] . ", " . $id_num . "," . $row['id_row']  . ", \"" . addslashes($row['seller_name']) . "\",\"" . addslashes($row['product_name']) . "\")'>Pickup Done</button>";
                                     echo "<button class='btn btn-danger'>Reject</button>";
                                     echo "</div>";
                                     echo "</td>";
@@ -132,8 +160,7 @@ if (isset($_GET['id'])) {
                                     echo "<span style='color:blue;'> Waiting for pickup</span>";
                                     echo "</td>";
                                     echo "</tr>";
-                                }
-                                else{
+                                } else {
                                     echo "<tr>";
                                     echo "<td><img src='" . $row['product_image'] . "' alt='' height='120' width='120'></td>";
                                     echo "<td>";
@@ -141,7 +168,7 @@ if (isset($_GET['id'])) {
                                     echo "<span>Quantity: " . $row['product_qty'] . "</span><br>";
                                     echo "<span>Customer Name: " . $row['id_number'] . "</span><br>";
                                     echo "<div style='display:flex; gap:10px; flex-wrap:wrap;'>";
-                                 
+
                                     echo "</div>";
                                     echo "</td>";
                                     echo "<td>";
@@ -160,16 +187,14 @@ if (isset($_GET['id'])) {
         </div>
     </div>
     <script>
-
-
-        function pickupBtn(stud_id,sell_id,idRow,sellerName,productName){
+        function pickupBtn(stud_id, sell_id, idRow, sellerName, productName) {
             let formD = new FormData();
 
             formD.append('studId', stud_id);
             formD.append('sell_id', sell_id);
             formD.append('id_row', idRow);
             formD.append('seller_name', sellerName);
-            formD.append('product_name',productName);
+            formD.append('product_name', productName);
 
             let xhr = new XMLHttpRequest();
 
@@ -187,14 +212,14 @@ if (isset($_GET['id'])) {
             location.reload();
         }
 
-        function approvedBtn(sell_id, stud_id, idRow,sellerName,proName) {
+        function approvedBtn(sell_id, stud_id, idRow, sellerName, proName) {
             let formD = new FormData();
 
             formD.append('sell_id', sell_id);
             formD.append('stud_id', stud_id);
             formD.append('id_row', idRow);
             formD.append('seller_name', sellerName);
-            formD.append('product_name',proName);
+            formD.append('product_name', proName);
 
             let xhr = new XMLHttpRequest();
 

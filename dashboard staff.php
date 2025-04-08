@@ -1,27 +1,5 @@
 <?php
 
-$dataPoints = array(
-  array("x" => 10, "y" => 41),
-  array("x" => 20, "y" => 35, "indexLabel" => "Lowest"),
-  array("x" => 30, "y" => 50),
-  array("x" => 40, "y" => 45),
-  array("x" => 50, "y" => 52),
-  array("x" => 60, "y" => 68),
-  array("x" => 70, "y" => 38),
-  array("x" => 80, "y" => 71, "indexLabel" => "Highest"),
-  array("x" => 90, "y" => 52),
-  array("x" => 100, "y" => 60),
-  array("x" => 110, "y" => 36),
-  array("x" => 120, "y" => 49),
-  array("x" => 130, "y" => 41)
-);
-
-?>
-
-
-
-<?php
-
 $totalVisitors = 883000;
 
 $newVsReturningVisitorsDataPoints = array(
@@ -64,6 +42,21 @@ $returningVisitorsDataPoints = array(
 <?php
 if (isset($_GET['id'])) {
   $id_num = $_GET['id'];
+  include('db.php');
+
+  $sql = "SELECT 
+           product_name,
+            COUNT(*) as count 
+        FROM orders_history
+        WHERE seller_id = $id_num
+        GROUP BY product_name";
+  $result = $conn->query($sql);
+
+  if ($result->num_rows > 0) {
+    while ($row = $result->fetch_assoc()) {
+      $dataPoints[] = array("y" => $row['count'],"indexLabel" => $row['product_name']);
+    }
+  }
 } ?>
 
 <!DOCTYPE html>
@@ -82,7 +75,6 @@ if (isset($_GET['id'])) {
 
   <script>
     window.onload = function() {
-
       var chart = new CanvasJS.Chart("chartContainer1", {
         animationEnabled: true,
         exportEnabled: true,
@@ -94,8 +86,7 @@ if (isset($_GET['id'])) {
           includeZero: true
         },
         data: [{
-          type: "column", //change type to bar, line, area, pie, etc
-          //indexLabel: "{y}", //Shows y value on all Data Points
+          type: "column", // Change type to bar, line, area, pie, etc.
           indexLabelFontColor: "#5A5757",
           indexLabelPlacement: "outside",
           dataPoints: <?php echo json_encode($dataPoints, JSON_NUMERIC_CHECK); ?>
@@ -238,7 +229,7 @@ if (isset($_GET['id'])) {
           </a>
         </li>
         <li class="sidebar-item">
-          <a href="#" class="sidebar-link">
+          <a href="profile (staff).php?id=<?php echo $id_num ?>" class="sidebar-link">
             <i class="lni lni-user"></i>
             <span>Profile</span>
           </a>

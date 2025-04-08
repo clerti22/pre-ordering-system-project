@@ -80,14 +80,77 @@ if (isset($_GET['id'])) {
 
         $result = $conn->query($sql);
 
-        if($result->num_rows > 0 ){
-          while($row = $result->fetch_assoc()){
-           
-            
+        if ($result->num_rows > 0) {
+          while ($row = $result->fetch_assoc()) {
+            if ($row['status_acc'] == "APPROVED") {
+              echo '<fieldset disabled>';
+              echo '  <div class="row">';
+              echo '    <div class="col">';
+              echo '      <div class="mb-3">';
+              echo '        <label for="disabledTextInput" class="form-label">ID Number: </label>';
+              echo '        <input type="number" id="disabledTextInput" class="form-control" placeholder="ID Number Value">';
+              echo '      </div>';
+              echo '    </div>';
+              echo '    <div class="col">';
+              echo '      <div class="mb-3">';
+              echo '        <label for="disabledTextInput" class="form-label">Email:</label>';
+              echo '        <input type="text" id="disabledTextInput" name="emailInpt" class="form-control" placeholder="Full Name Value">';
+              echo '      </div>';
+              echo '    </div>';
+              echo '  </div>';
+              echo '  <div class="row">';
+              echo '    <div class="col">';
+              echo '      <div class="mb-3">';
+              echo '        <label for="disabledTextInput" class="form-label">Seller Name:</label>';
+              echo '        <input type="text" id="disabledTextInput" name="nameInpt" class="form-control" placeholder="Gender Value">';
+              echo '      </div>';
+              echo '    </div>';
+              echo '    <div class="col">';
+              echo '      <div class="mb-3">';
+              echo '        <label for="disabledTextInput" class="form-label">Address:</label>';
+              echo '        <input type="text" id="disabledTextInput" name="addInpt" class="form-control" placeholder="Grade Level Value">';
+              echo '      </div>';
+              echo '    </div>';
+              echo '  </div>';
+              echo '  <div class="row">';
+              echo '    <div class="col">';
+              echo '      <div class="mb-3">';
+              echo '        <label for="disabledTextInput" class="form-label">Gender:</label>';
+              echo '        <input type="text" name="genderInpt" id="disabledTextInput" class="form-control" placeholder="Section Value">';
+              echo '      </div>';
+              echo '    </div>';
+              echo '    <div class="col">';
+              echo '      <div class="mb-3">';
+              echo '        <label for="disabledTextInput" class="form-label">Phone Number:</label>';
+              echo '        <input type="number" id="disabledTextInput" class="form-control" name="phoneInpt" placeholder="APPROVED" style="color: green;">';
+              echo '      </div>';
+              echo '    </div>';
+              echo '  </div>';
+              echo '  <div class="row">';
+              echo '    <div class="col">';
+              echo '      <div class="mb-3">';
+              echo '        <label for="disabledTextInput" class="form-label">Location:</label>';
+              echo '        <input type="text" name="locationInpt" id="disabledTextInput" class="form-control" placeholder="Section Value">';
+              echo '      </div>';
+              echo '    </div>';
+              echo '    <div class="col">';
+              echo '      <div class="mb-3">';
+              echo '        <label for="disabledTextInput" class="form-label">Status</label>';
+              echo '        <input type="text" id="disabledTextInput" class="form-control" placeholder="APPROVED" style="color: green;">';
+              echo '      </div>';
+              echo '    </div>';
+              echo '  </div>';
+              echo '  <div class="row">';
+              echo '    <div class="col">';
+              echo '      <p class="text-center" style="color:red;">Cannot update profile, because your account has been approved by the admin, if you wish please approach the admin</p>';
+              echo '    </div>';
+              echo '  </div>';
+              echo '</fieldset>';
+            }
           }
         }
-        
-        ?>        
+
+        ?>
 
       </div>
 
