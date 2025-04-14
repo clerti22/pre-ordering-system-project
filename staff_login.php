@@ -54,6 +54,7 @@
 
 
 <?php
+session_start();
 $servername = "127.0.0.1:3307";
 $username = "root";
 $password = "";
@@ -79,10 +80,11 @@ if ($conn->connect_error) {
 
       if ($result->num_rows > 0) {
         while ($row = $result->fetch_assoc()) {
-          $id_num = $row["staff_id"];
+           $_SESSION['num'] = $row["staff_id"];
+
           echo "<script> console.log('$id_num'); </script>";
           echo "<script> alert('Logged In!'); </script>";
-          header("Location: staff main.php?num=$id_num");
+          header("Location: staff main.php");
           exit();
         }
       } else {

@@ -1,3 +1,5 @@
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&family=Roboto:ital,wght@0,100..900;1,100..900&display=swap');
+
 body{
   background-color: #13004A;
   font-family: "Montserrat", serif;
@@ -45,4 +47,11 @@ body{
 .gender{
   margin-left: 5em;
   
+}
+
+footer{
+  margin-top: 8em;
+  font-size: 0.8em;
+  
+  color: rgb(212, 212, 212);
 }

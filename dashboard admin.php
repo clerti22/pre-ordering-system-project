@@ -71,7 +71,7 @@ $returningVisitorsDataPoints = array(
   <meta charset="UTF-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>SMCC QuickBite - Staff Main</title>
+  <title>SMCC QuickBite - Dashboard Admin</title>
   <link href="https://cdn.lineicons.com/4.0/lineicons.css" rel="stylesheet" />
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/css/bootstrap.min.css" rel="stylesheet"
     integrity="sha384-KK94CHFLLe+nY2dmCWGMq91rCGa5gtU4mk92HdvYe+M/SXH301p5ILy+dN9+nJOZ" crossorigin="anonymous">
@@ -222,26 +222,23 @@ $returningVisitorsDataPoints = array(
           </a>
 
         </li>
-
         <li class="sidebar-item">
-          <a href="#" class="sidebar-link">
+          <a href="#" class="sidebar-link collapsed has-dropdown" data-bs-toggle="collapse"
+            data-bs-target="#auth" aria-expanded="false" aria-controls="auth">
             <i class="bi bi-people"></i>
             <span>Users Management</span>
           </a>
+          <ul id="auth" class="sidebar-dropdown list-unstyled collapse" data-bs-parent="#sidebar">
+            <li class="sidebar-item">
+              <a href="student management.php" class="sidebar-link">Student</a>
+            </li>
+            <li class="sidebar-item">
+              <a href="staff management.php" class="sidebar-link">Staff</a>
+            </li>
+          </ul>
         </li>
 
-        <li class="sidebar-item">
-          <a href="#" class="sidebar-link">
-            <i class="bi bi-clipboard-data"></i>
-            <span>Reports</span>
-          </a>
-        </li>
-        <li class="sidebar-item">
-          <a href="#" class="sidebar-link">
-            <i class="lni lni-user"></i>
-            <span>Profile</span>
-          </a>
-        </li>
+        
       </ul>
       <div class="sidebar-footer">
         <a href="#" class="sidebar-link">
@@ -262,32 +259,213 @@ $returningVisitorsDataPoints = array(
             <div class="totalUSers">
               <p>Total Users</p>
               <i class="bi bi-people" style="font-size: 1.7rem;"></i>
-              <span style="font-size: 1.7rem;">141</span>
+              <span style="font-size: 1.7rem;">
+
+                <?php
+                include('db.php');
+
+                $num1 = 0;
+
+                $sql1 = "SELECT COUNT(*) as count_stud from shs_students_data;";
+                
+                $result1 = $conn->query($sql1);
+              
+
+                if($result1->num_rows > 0){
+                  while($row1 = $result1->fetch_assoc()){
+                    $num1 = $row1['count_stud'];
+                  }
+                }
+
+                $num2 = 0;
+
+                $sql2 = "SELECT COUNT(*) as count_staff from staff_datas;";
+                
+                $result2 = $conn->query($sql2);
+              
+
+                if($result2->num_rows > 0){
+                  while($row2 = $result2->fetch_assoc()){
+                    $num2 = $row2['count_staff'];
+                  }
+                }
+
+                $sum = $num1 + $num2;
+
+                echo $sum;
+
+                ?>
+              </span>
             </div>
           </div>
           <div class="col-md-4">
             <div class="totalUSers">
               <p>Total Verified Users</p>
               <i class="bi bi-people" style="font-size: 1.7rem;"></i>
-              <span style="font-size: 1.7rem;">120</span>
+              <span style="font-size: 1.7rem;">
+
+              <?php
+                include('db.php');
+
+                $num1 = 0;
+
+                $sql1 = "SELECT COUNT(*) as count_stud from shs_students_data where status = 'APPROVED';";
+                
+                $result1 = $conn->query($sql1);
+              
+
+                if($result1->num_rows > 0){
+                  while($row1 = $result1->fetch_assoc()){
+                    $num1 = $row1['count_stud'];
+                  }
+                }
+
+                $num2 = 0;
+
+                $sql2 = "SELECT COUNT(*) as count_staff from staff_datas where status_acc = 'APPROVED';";
+                
+                $result2 = $conn->query($sql2);
+              
+
+                if($result2->num_rows > 0){
+                  while($row2 = $result2->fetch_assoc()){
+                    $num2 = $row2['count_staff'];
+                  }
+                }
+
+                $sum = $num1 + $num2;
+
+                echo $sum;
+
+                ?>
+              </span>
             </div>
           </div>
           <div class="col-md-4">
             <div class="totalUSers">
               <p>Total unverified users</p>
               <i class="bi bi-people" style="font-size: 1.7rem;"></i>
-              <span style="font-size: 1.7rem;">21</span>
+              <span style="font-size: 1.7rem;">
+              <?php
+                include('db.php');
+
+                $num1 = 0;
+
+                $sql1 = "SELECT COUNT(*) as count_stud from shs_students_data where status = 'NOT APPROVED';";
+                
+                $result1 = $conn->query($sql1);
+              
+
+                if($result1->num_rows > 0){
+                  while($row1 = $result1->fetch_assoc()){
+                    $num1 = $row1['count_stud'];
+                  }
+                }
+
+                $num2 = 0;
+
+                $sql2 = "SELECT COUNT(*) as count_staff from staff_datas where status_acc = 'NOT APPROVED';";
+                
+                $result2 = $conn->query($sql2);
+              
+
+                if($result2->num_rows > 0){
+                  while($row2 = $result2->fetch_assoc()){
+                    $num2 = $row2['count_staff'];
+                  }
+                }
+
+                $sum = $num1 + $num2;
+
+                echo $sum;
+
+                ?>
+              </span>
             </div>
           </div>
 
         </div>
         <div class="row" style="margin-top: 2em;">
-          <div class="col-md-6" >
-            <div id="chartContainer1" style="height: 70vh; width: 100%;"></div>
+          <div class="col-md-6">
+          <h3>Students Data</h3>
+            <div  style="height: 70vh; width: 100%; background-color: white;">
+              
+            <table class="table table-striped">
+                <thead>
+                  <tr>
+                    <th scope="col">ID Number</th>
+                    <th scope="col">Name</th>
+                    <th scope="col">Grade</th>
+                    <th scope="col">Section</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <?php
+                  
+                  include('db.php');
+
+                  $sql = "SELECT * FROM shs_students_data";
+
+                  $result = $conn->query($sql);
+
+                  if($result->num_rows > 0){
+                    while($row = $result->fetch_assoc()){
+                      echo '<tr>';
+                      echo '<td>'. $row['id_number'] .'</td>';
+                      echo '<td>'. $row['full_name'] .'</td>';
+                      echo '<td>'. $row['grade_level'] .'</td>';
+                      echo '<td>'. $row['section'] .'</td>';
+                      echo '</tr>';
+                    }
+                  }
+                  
+                  ?>
+                  
+                </tbody>
+              </table>
+            </div>
 
           </div>
-          <div class="col-md-6" >
-            <div id="chartContainer" style="height: 70vh; width: 100%;"></div>
+          <div class="col-md-6">
+          <h3>Staffs Data</h3>
+            <div style="height: 70vh; width: 100%;background-color:white;">
+
+            
+            <table class="table table-striped">
+                <thead>
+                  <tr>
+                    <th scope="col">ID Number</th>
+                    <th scope="col">Name</th>
+                    <th scope="col">Phone Number</th>
+                    <th scope="col">Location</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <?php
+                  
+                  include('db.php');
+
+                  $sql = "SELECT * FROM staff_datas";
+
+                  $result = $conn->query($sql);
+
+                  if($result->num_rows > 0){
+                    while($row = $result->fetch_assoc()){
+                      echo '<tr>';
+                      echo '<td>'. $row['staff_id'] .'</td>';
+                      echo '<td>'. $row['name'] .'</td>';
+                      echo '<td>'. $row['phone'] .'</td>';
+                      echo '<td>'. $row['location'] .'</td>';
+                      echo '</tr>';
+                    }
+                  }
+                  
+                  ?>
+                  
+                </tbody>
+              </table>
+
+            </div>
 
           </div>
         </div>

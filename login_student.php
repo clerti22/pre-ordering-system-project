@@ -11,10 +11,10 @@
 
 <body>
   <div class="main d-flex justify-content-center align-items-center">
-    <img src="png files/smcc logo.png" alt="" height="208">
+    <img src="png files/smcc logo.png" alt="" height="150">
     <div class="mainBody">
       <div class="container">
-        <h1>Student Register</h1>
+        <h1>Student Login</h1>
         <form action="login_student.php" method="POST">
           <label for="">Student ID: </label>
           <div class="input-group input-group-sm mb-3">
@@ -30,16 +30,20 @@
           <label for="">Show Password</label>
           <br><br>
 
-          <input class="btn btn-primary submitBtn" type="submit" value="Submit">
+          <input class="btn btn-primary submitBtn" type="submit" value="Login">
 
           <div class="bottom text text-center">
-            <p>Don't have account? <a href="register_student.php" style="color: #2EB56B; text-decoration: none;">Register Here</a></p>
+            <p style="font-size:15px">Don't have account? <a href="register_student.php" style="color: #2EB56B; text-decoration: none;font-size:15px;">Register Here</a></p>
           </div>
 
 
         </form>
       </div>
     </div>
+
+    <footer class="text-center">
+      <p>Developed by the BSIT students: Dizon, Olayan, Castino 2025</p>
+    </footer>
   </div>
 
   <script src="js/bootstrap.bundle.min.js"></script>
@@ -50,7 +54,7 @@
 
 
 <?php
-
+session_start();
 $servername = "127.0.0.1:3307";
 $username = "root";
 $password = "";
@@ -66,6 +70,7 @@ if ($conn->connect_error) {
   if (isset($_POST["idNum"], $_POST["passw"])) {
     $id_num = $_POST["idNum"];
     $pass = $_POST["passw"];
+    $_SESSION['num'] = $id_num;
 
     $sql = "SELECT id FROM shs_students_data WHERE id_number = $id_num AND password ='$pass';";
     $result = $conn->query($sql);
@@ -75,7 +80,7 @@ if ($conn->connect_error) {
     }
 
     if($result->fetch_assoc()){
-      header("Location: student main.php?num=$id_num");
+      header("Location: student main.php");
       exit();
     }
     else{

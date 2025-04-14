@@ -1,7 +1,10 @@
 <?php
-if (isset($_GET['id'])) {
-    $id_num = $_GET['id'];
-} ?>
+session_start();
+if (isset($_SESSION['num'])) {
+    $id_num = $_SESSION['num'];
+} 
+
+?>
 
 
 <!DOCTYPE html>
@@ -32,7 +35,7 @@ if (isset($_GET['id'])) {
             </div>
             <ul class="sidebar-nav">
                 <li class="sidebar-item">
-                    <a href="dashboard staff.php?id=<?php echo $id_num ?>" class="sidebar-link">
+                    <a href="dashboard staff.php" class="sidebar-link">
                         <i class="bi bi-grid-fill"></i>
                         <span>Dashboard</span>
                     </a>
@@ -40,26 +43,26 @@ if (isset($_GET['id'])) {
                 </li>
 
                 <li class="sidebar-item">
-                    <a href="staff main.php?num=<?php echo $id_num ?>" class="sidebar-link">
+                    <a href="staff main.php" class="sidebar-link">
                         <i class="bi bi-box-seam"></i>
                         <span>Your Products</span>
                     </a>
                 </li>
                 <li class="sidebar-item">
-                    <a href="orders staff.php?id=<?php echo $id_num ?>" class="sidebar-link">
+                    <a href="orders staff.php" class="sidebar-link">
                         <i class="bi bi-cart"></i>
                         <span>Orders</span>
                     </a>
                 </li>
                 <li class="sidebar-item">
-                    <a href="#" class="sidebar-link">
+                    <a href="profile (staff).php" class="sidebar-link">
                         <i class="lni lni-user"></i>
                         <span>Profile</span>
                     </a>
                 </li>
             </ul>
             <div class="sidebar-footer">
-                <a href="staff_login.php" class="sidebar-link">
+                <a href="logout.php" class="sidebar-link">
                     <i class="lni lni-exit"></i>
                     <span>Logout</span>
                 </a>
@@ -122,7 +125,7 @@ if (isset($_GET['id'])) {
 
                         include('db.php');
 
-                        $sql = "SELECT * FROM orders_history where seller_id = $id_num ORDER BY id_row;";
+                        $sql = "SELECT * FROM orders_history where seller_id = $id_num ORDER BY id_row DESC;";
 
                         $result = $conn->query($sql);
 
@@ -134,7 +137,7 @@ if (isset($_GET['id'])) {
                                     echo "<td>";
                                     echo "<span>" . $row['product_name'] . "</span><br>";
                                     echo "<span>Quantity: " . $row['product_qty'] . "</span><br>";
-                                    echo "<span>Customer Name: " . $row['id_number'] . "</span><br>";
+                                    echo "<span>Customer ID: " . $row['id_number'] . "</span><br>";
                                     echo "<div style='display:flex; gap:10px; flex-wrap:wrap;'>";
                                     echo "<button class='btn btn-success' onclick='approvedBtn(" . $id_num . "," . $row['id_number'] . "," . $row['id_row'] . ", \"" . addslashes($row['seller_name']) . "\",\"" . addslashes($row['product_name']) . "\")'>Order Ready</button>";
                                     echo "<button class='btn btn-danger'>Reject</button>";
@@ -150,7 +153,7 @@ if (isset($_GET['id'])) {
                                     echo "<td>";
                                     echo "<span>" . $row['product_name'] . "</span><br>";
                                     echo "<span>Quantity: " . $row['product_qty'] . "</span><br>";
-                                    echo "<span>Customer Name: " . $row['id_number'] . "</span><br>";
+                                    echo "<span>Customer ID: " . $row['id_number'] . "</span><br>";
                                     echo "<div style='display:flex; gap:10px; flex-wrap:wrap;'>";
                                     echo "<button class='btn btn-success' onclick='pickupBtn(" . $row['id_number'] . ", " . $id_num . "," . $row['id_row']  . ", \"" . addslashes($row['seller_name']) . "\",\"" . addslashes($row['product_name']) . "\")'>Pickup Done</button>";
                                     echo "<button class='btn btn-danger'>Reject</button>";
@@ -166,7 +169,7 @@ if (isset($_GET['id'])) {
                                     echo "<td>";
                                     echo "<span>" . $row['product_name'] . "</span><br>";
                                     echo "<span>Quantity: " . $row['product_qty'] . "</span><br>";
-                                    echo "<span>Customer Name: " . $row['id_number'] . "</span><br>";
+                                    echo "<span>Customer ID: " . $row['id_number'] . "</span><br>";
                                     echo "<div style='display:flex; gap:10px; flex-wrap:wrap;'>";
 
                                     echo "</div>";

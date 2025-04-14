@@ -16,12 +16,14 @@
       <div class="container-fluid">
         <img class="navbar-brand" src="png files\smcc logo.png" height="60">
         <div class="d-flex justify-content-center align-items-center pfp">
-          <a href="order page(student).php?num=<?php echo $_GET['num'] ?>"><i class="bi bi-bag-check" style="color:white;font-size:  2rem;" alt="go to your orders"></i></a>
-          <span style="color:red;"><?php
+          <a href="order page(student).php"><i class="bi bi-bag-check" style="color:white;font-size:  2rem;" alt="go to your orders"></i></a>
+          <span style="color:red;">
+        <?php
+        session_start();
           include('db.php');
 
-          if (isset($_GET['num'])) {
-            $id = $_GET['num'];
+          if (isset($_SESSION['num'])) {
+            $id = $_SESSION['num'];
              $sql = "select count(*) from orders_history where id_number = $id;";
 
              $result = $conn->query($sql);
@@ -34,13 +36,13 @@
           }
          
         ?></span>
-          <a href="notification user.php?num=<?php echo $_GET['num']; ?>"><i class="bi bi-bell" style="color:white; margin-left:25px;font-size: 2rem;" alt="go to your orders"></i></a>
+          <a href="notification user.php"><i class="bi bi-bell" style="color:white; margin-left:25px;font-size: 2rem;" alt="go to your orders"></i></a>
           <span style="color:red;margin-right:25px;">
           <?php
           include('db.php');
 
-          if (isset($_GET['num'])) {
-            $id = $_GET['num'];
+          if (isset($_SESSION['num'])) {
+            $id = $_SESSION['num'];
              $sql = "select count(*) from user_notification where id_number = $id;";
 
              $result = $conn->query($sql);
@@ -55,7 +57,7 @@
         ?>
           </span>
           <i class="bi bi-person-circle icons pfpIcon"></i>
-          <a  href="profile (student).php?id=<?php echo $id ?>" style="color: white; margin-left:4px;">Profile</a>
+          <a  href="profile (student).php" style="color: white; margin-left:4px;">Profile</a>
         </div>
       </div>
     </nav>
@@ -64,7 +66,7 @@
   <div class="main">
     <div class="mainBody">
       <div class="container-fluid">
-      <button type="button" class="btn btn-danger">Go back to menu</button>
+      <a href="student main.php" class="btn btn-danger">Go back to menu</a>
         <h1 style="font-size: 4rem;"><strong>Your Cart</strong></h1>
         <div class="tableSec">
 
@@ -79,8 +81,8 @@
             </thead>
             <tbody>
               <?php
-              if (isset($_GET['num'])) {
-                $id = $_GET['num'];
+              if (isset($_SESSION['num'])) {
+                $id = $_SESSION['num'];
 
                 include('db.php');
 
@@ -94,8 +96,8 @@
                     $num += 1;
                     echo "<tr>";
                     echo "<td><button type='button' class='btn btn-danger' onclick='deleteCart(" . $row['id_row'] . ")'><i class='bi bi-trash'></i></button></td>";
-                    echo " <td><img src='" . $row['product_img'] . "' alt='' height='90' width='140'></td>";
-                    echo "<td>" . $row['product_name'] . " <br><span id='priceN" . $num . "'>&#8369; " . $row['amount'] . "</span> <br>";
+                    echo " <td><img class='imgs' src='" . $row['product_img'] . "' alt='' height='90' width='140'></td>";
+                    echo "<td class='detailTxt'>" . $row['product_name'] . " <br><span id='priceN" . $num . "'>&#8369; " . $row['amount'] . "</span> <br>";
                     echo "<button class='qtyBtn' onclick='addQty(" . $num . "," .  $row['product_price']  . "," . $row['qty'] . "," . $row['id_row'] . ")' >+</button><span style='margin: 5px;' id='qtyID" . $num . "'>" . $row['qty'] . "</span><button class='qtyBtn' onclick='decQty(" . $num . "," .  $row['product_price']  . "," . $row['qty'] . "," . $row['id_row'] . ")'>-</button><br>";
                     echo "<p style='font-style: italic; font-size: 10px; color: grey;''>Seller Name: " . $row['seller_name'] . "</p></td>";
                     echo "</tr>";
@@ -103,7 +105,7 @@
                 }
               }
               ?>
-              <input type="hidden" value="<?php echo $_GET['num']; ?>" id="inputID">
+              <input type="hidden" value="<?php echo $_SESSION['num']; ?>" id="inputID">
               <script>
                 let deleteCart = (idRow) => {
                   let formD = new FormData();

@@ -55,3 +55,10 @@ body{
   margin-left: 5em;
   
 }
+
+footer{
+  margin-top: 8em;
+  font-size: 0.8em;
+  font-style: italic;
+  color: white;
+}

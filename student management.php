@@ -28,7 +28,7 @@
       </div>
       <ul class="sidebar-nav">
         <li class="sidebar-item">
-          <a href="#" class="sidebar-link">
+          <a href="dashboard admin.php" class="sidebar-link">
             <i class="bi bi-grid-fill"></i>
             <span>Dashboard</span>
           </a>
@@ -45,23 +45,12 @@
               <a href="#" class="sidebar-link">Student</a>
             </li>
             <li class="sidebar-item">
-              <a href="#" class="sidebar-link">Staff</a>
+              <a href="staff management.php" class="sidebar-link">Staff</a>
             </li>
           </ul>
         </li>
 
-        <li class="sidebar-item">
-          <a href="#" class="sidebar-link">
-            <i class="bi bi-clipboard-data"></i>
-            <span>Reports</span>
-          </a>
-        </li>
-        <li class="sidebar-item">
-          <a href="#" class="sidebar-link">
-            <i class="lni lni-user"></i>
-            <span>Profile</span>
-          </a>
-        </li>
+        
       </ul>
       <div class="sidebar-footer">
         <a href="#" class="sidebar-link">
@@ -73,7 +62,7 @@
     <div class="main p-3">
       <div style="margin-bottom: 3em; margin-top:3em;">
         <h1 style="font-size: 3rem;" class="text-center">
-          Users management
+          Students management
         </h1>
       </div>
 
@@ -81,44 +70,29 @@
 
         <input type="text" id="searchInpt" name="searchInpt" class="inptSearch" placeholder="Search Name">
         <button class="btn btn-outline-success searchBtn" id="searchBtn">Search</button>
-
-        <select class="form-select form-select-sm select-P" aria-label="Small select example" id="rolesSelect">
-          <option>-- Please Select --</option>
-          <option value="Students">Students</option>
-          <option value="Personnels">Personnels</option>
-          <option value="Canteen Staffs">Canteen Staffs</option>
-        </select>
+       
 
       </div>
 
 
       <script>
-        document.getElementById('rolesSelect').addEventListener("change", (event) => {
-          let tbody = document.getElementById('tableSec');
-          let selectedVal = '';
-
-          if (event.target.value === "Students") {
-            selectedVal = 'Students';
-          } else if (event.target.value === "Personnels") {
-            selectedVal = "Non-Personnels";
-          } else if (event.target.value === "Canteen Staffs") {
-            selectedVal = "Canteen Staffs";
-          } else {
-            console.log('Please select option');
-          }
+        document.getElementById('searchBtn').addEventListener("click",(event) => {
+          let val = document.getElementById('searchInpt').value;
+          let table = document.getElementById('tableBody');
 
           let formD = new FormData();
 
-          formD.append('value', selectedVal);
+          formD.append('val',val);
 
           let xhr = new XMLHttpRequest();
 
-          xhr.open('POST', 'roles options(user management).php', true);
+          xhr.open('POST','search student.php',true);
 
-          xhr.onload = () => {
-            if (xhr.status == 200) {
-              tbody.innerHTML = xhr.responseText;
-            } else {
+          xhr.onload = ()=>{
+            if(xhr.status == 200){
+              table.innerHTML = xhr.responseText;
+            }
+            else{
               console.log(xhr.status);
             }
           }
@@ -127,8 +101,56 @@
         });
       </script>
 
+
       <div class="tableSec" style="background-color: white;">
-        <table class="table table-striped" id="tableSec"></table>
+        <table class="table table-striped" id="tableSec">
+          <?php
+          include('db.php');
+
+          echo "<thead>";
+              echo "<tr>";
+              echo "<th scope='col'>ID Number</th>";
+              echo "<th scope='col'>Full Name</th>";
+              echo "<th scope='col'>Gender</th>";
+              echo "<th scope='col'>Grade Level</th>";
+              echo "<th scope='col'>Section</th>";
+              echo " <th scope='col'>Status</th>";
+              echo "</tr></thead>";
+              echo "<tbody id='tableBody'>";
+          
+              $sql = "SELECT * FROM shs_students_data;";
+              $result = $conn->query($sql);
+          
+              if ($result->num_rows > 0) {
+                while ($row = $result->fetch_assoc()) {
+                  if ($row['status'] == "NOT APPROVED") {
+                    echo "<tr>";
+                    echo "<td>" . $row['id_number'] . "</td>";
+                    echo "<td>" . $row['full_name'] . "</td>";
+                    echo "<td>" . $row['gender'] . "</td>";
+                    echo "<td>" . $row['grade_level'] . "</td>";
+                    echo "<td>" . $row['section'] . "</td>";
+                    echo "<td><button type='button' class='btn btn-success' onclick='verifyAcc(" . $row['id_number'] . ")' >Approve Account</button></td>";
+                    echo "</tr>";
+                  } else {
+                    echo "<tr>";
+                    echo "<td>" . $row['id_number'] . "</td>";
+                    echo "<td>" . $row['full_name'] . "</td>";
+                    echo "<td>" . $row['gender'] . "</td>";
+                    echo "<td>" . $row['grade_level'] . "</td>";
+                    echo "<td>" . $row['section'] . "</td>";
+                    echo "<td><span style='color:green;'>Approved Account</span></td>";
+                    echo "</tr>";
+                  }
+                }
+              }
+              echo "</tbody>";
+          
+          
+          
+          ?>
+
+        </table>
       </div>
     </div>
     <script>
@@ -180,3 +202,13 @@
 </body>
 
 </html>
+
+
+<?php
+
+
+
+
+
+
+?>

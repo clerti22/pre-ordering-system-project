@@ -65,6 +65,9 @@
         </form>
       </div>
     </div>
+    <footer>
+      <p>Developed by the BSIT-2 students: Dizon, Olayan, Castino</p>
+    </footer>
   </div>
 
   <script src="js/bootstrap.bundle.min.js"></script>

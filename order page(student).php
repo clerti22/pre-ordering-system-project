@@ -1,7 +1,7 @@
 <?php
-
-if (isset($_GET['num'])) {
-  $id = $_GET['num'];
+session_start();
+if (isset($_SESSION['num'])) {
+  $id = $_SESSION['num'];
 }
 ?>
 
@@ -24,12 +24,11 @@ if (isset($_GET['num'])) {
         <img class="navbar-brand" src="png files\smcc logo.png" height="60">
         <div class="d-flex justify-content-center align-items-center pfp">
           <div style="margin-right: 20px;">
-            <a href="add to cart page.php?num=<?php echo $id ?>"><i class="bi bi-cart" style="color: white;font-size:1.7rem;"></i></a>
+            <a href="add to cart page.php"><i class="bi bi-cart" style="color: white;font-size:1.7rem;"></i></a>
             <span style="color: red;"><?php
                                       include('db.php');
 
-                                      if (isset($_GET['num'])) {
-                                        $id = $_GET['num'];
+                                   
                                         $sql = "select count(*) from carts where student_id = $id;";
 
                                         $result = $conn->query($sql);
@@ -39,15 +38,14 @@ if (isset($_GET['num'])) {
                                             echo $row['count(*)'];
                                           }
                                         }
-                                      }
+                                      
 
                                       ?></span>
-            <a href="notification user.php?num=<?php echo $id ?>"><i class="bi bi-bell" style="color: white;font-size:1.7rem;"></i></a>
+            <a href="notification user.php"><i class="bi bi-bell" style="color: white;font-size:1.7rem;"></i></a>
             <span style="color: red;"><?php
                                       include('db.php');
 
-                                      if (isset($_GET['num'])) {
-                                        $id = $_GET['num'];
+                                     
                                         $sql = "select count(*) from user_notification where id_number = $id;";
 
                                         $result = $conn->query($sql);
@@ -57,12 +55,12 @@ if (isset($_GET['num'])) {
                                             echo $row['count(*)'];
                                           }
                                         }
-                                      }
+                                      
 
                                       ?></span>
           </div>
           <i class="bi bi-person-circle icons pfpIcon"></i>
-          <a href="profile (student).php?id=<?php echo $id ?>" style="color: white; margin-left:4px;">Profile</a>
+          <a href="profile (student).php" style="color: white; margin-left:4px;">Profile</a>
         </div>
       </div>
     </nav>
@@ -72,16 +70,16 @@ if (isset($_GET['num'])) {
     <div class="mainBody">
       <div class="container-fluid">
 
-        <button type="button" class="btn btn-danger">Go back to menu</button>
+      <a href="student main.php" class="btn btn-danger">Go back to menu</a>
         <h1 style="font-size: 4rem;"><strong>Your Orders</strong></h1>
         <div class="tableSec">
           <table class="table table-striped">
             <thead>
               <tr>
-                <th scope="col"></th>
-                <th></th>
-                <th scope="col">Product Name</th>
-                <th scope="col">Status</th>
+                <th scope="col" class="headC"></th>
+                <th ></th>
+                <th scope="col" class="headC">Product Name</th>
+                <th scope="col" class="headC">Status</th>
 
               </tr>
             </thead>
@@ -116,8 +114,7 @@ if (isset($_GET['num'])) {
               </tr> -->
 
               <?php
-              if (isset($_GET['num'])) {
-                $id = $_GET['num'];
+            
 
                 include('db.php');
 
@@ -149,7 +146,7 @@ if (isset($_GET['num'])) {
                       echo "  <span style='font-style: italic; font-size: 10px; color: grey;'>Seller Name: " . $row['seller_name'] . " </span><br>";
                       echo " <span style='font-style: italic; font-size: 10px; color: grey;'> Date Ordered: ". $row['formatted_date']  ." </span>";
                       echo "</td>";
-                      echo " <td><span style='color:#FFD900;font-weight:bold;'>Pending</span><br>
+                      echo " <td><span style='color:orange;font-weight:bold;' class='status'>Pending</span><br>
                 </td>";
                     } else if ($row['status'] == "Waiting for pickup") {
                       echo "<tr>";
@@ -160,7 +157,7 @@ if (isset($_GET['num'])) {
                       echo "  <span style='font-style: italic; font-size: 10px; color: grey;'>Seller Name: " . $row['seller_name'] . " </span><br>";
                       echo " <span style='font-style: italic; font-size: 10px; color: grey;'> Date Ordered: 3/26/25 </span>";
                       echo "</td>";
-                      echo " <td><span style='color:blue;font-weight:bold;'>Waiting for pickup</span><br>";
+                      echo " <td><span style='color:blue;font-weight:bold;' class='status'>Waiting for pickup</span><br>";
                       echo "</td>";
                     }
                     else{
@@ -172,12 +169,12 @@ if (isset($_GET['num'])) {
                       echo "  <span style='font-style: italic; font-size: 10px; color: grey;'>Seller Name: " . $row['seller_name'] . " </span><br>";
                       echo " <span style='font-style: italic; font-size: 10px; color: grey;'> Date Ordered: ". $row['formatted_date']  ." </span>";
                       echo "</td>";
-                      echo " <td><span style='color:green;font-weight:bold;'>Order Retrieved</span><br>
+                      echo " <td><span style='color:green;font-weight:bold;' class='status'>Order Retrieved</span><br>
                 </td>";
                     }
                   }
                 }
-              }
+              
               ?>
               </tr>
             </tbody>

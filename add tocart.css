@@ -61,6 +61,28 @@ body{
 } 
 
 
+
 .col{
   margin: 1em;
+}
+
+
+@media screen and (max-width:405px) {
+  .detailTxt{
+    font-size: 13px;
+  }
+  .imgs{
+    width: 120px;
+  }
+  .icons{
+    font-size: 15px;
+  }
+
+  .status{
+    font-size: 10px;
+  }
+  .headC{
+    font-size: 0.6rem;
+  }
+  
 }

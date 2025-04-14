@@ -18,34 +18,39 @@
     <div class="mainBody">
       <div class="container">
         <h1>Staff Register</h1>
-        <form action="staff_register.php" method="POST" class="row g-3">
-          <div class="col-md-6">
+        <form action="staff_register.php" method="POST">
+          <div class="row">
+          <div class="col-md">
             <label for="inputEmail4" class="form-label">Email</label>
             <input type="email" class="form-control" id="inputEmail4" name="inputEmail">
           </div>
-          <div class="col-md-6">
+          <div class="col-md">
             <label for="inputPassword4" class="form-label">Password</label>
             <input type="password" class="form-control" id="inputPassword4" name="inputPass">
           </div>
-          <div class="col-md-12">
+          </div>
+          <div class="row">
+          <div class="col-md">
             <label for="inputEmail4" class="form-label">Full Name</label>
             <input type="text" class="form-control" id="inputEmail4" name="fullName">
           </div>
-          <div class="col-md-12">
+          <div class="col-md">
             <label for="inputAddress" class="form-label">Address</label>
             <input type="text" class="form-control" id="inputAddress" name="inputAdd">
           </div>
-          <div class="col-md-6 ">
+          </div>
+          <div class="row">
+          <div class="col-md ">
             <label for="inputPassword4" class="form-label">Gender</label>
             <div class="d-flex">
               <div class="form-check" style="margin-right: 1em;">
-                <input class="form-check-input" type="radio" name="genders" id="flexRadioDefault1">
+                <input class="form-check-input" type="radio" name="genders" id="flexRadioDefault1" value="Male">
                 <label class="form-check-label" for="flexRadioDefault1">
                   Male
                 </label>
               </div>
               <div class="form-check">
-                <input class="form-check-input" type="radio" name="genders" id="flexRadioDefault2">
+                <input class="form-check-input" type="radio" name="genders" id="flexRadioDefault2" value="Female">
                 <label class="form-check-label" for="flexRadioDefault2">
                   Female
                 </label>
@@ -53,12 +58,13 @@
             </div>
 
           </div>
-          <div class="col-md-6">
+          <div class="col-md">
             <label for="">Phone Number</label>
             <div class="input-group flex-nowrap">
               <span class="input-group-text" id="addon-wrapping">+63</span>
               <input type="numbers" class="form-control" aria-describedby="addon-wrapping" name="phoneNum">
             </div>
+          </div>
           </div>
           <div class="col-md-12">
             <label for="inputState" class="form-label">Campus Location</label>
@@ -118,4 +124,5 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
   }
 }
 }
+
 ?>

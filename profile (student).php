@@ -15,11 +15,6 @@
     <nav class="navbar">
       <div class="container-fluid">
         <img class="navbar-brand" src="png files\smcc logo.png" height="60">
-        <div class="d-flex justify-content-center align-items-center pfp">
-          <a href=""><i class="bi bi-bag-check" style="color:white; margin-right:25px;font-size: 1.7rem;" alt="go to your orders"></i></a>
-          <i class="bi bi-person-circle icons pfpIcon"></i>
-          <span style="color: white; margin-left:4px;">Profile</span>
-        </div>
       </div>
     </nav>
   </header>
@@ -27,14 +22,15 @@
   <div class="main">
     <div class="mainBody">
       <div class="container-fluid">
-        <button type="button" class="btn btn-danger">Go back to menu</button>
+      <a href="student main.php" class="btn btn-danger">Go back to menu</a>
         <h1 style="font-size: 4rem;" class="text-center"><strong>Profile Status</strong></h1>
 
         <div class="container" style="margin-top: 2em; background-color: white; padding: 3em; border-radius: 1.4em;">
           <form action="samp.php" method="POST">
             <?php
-            if (isset($_GET['id'])) {
-              $id = $_GET['id'];
+            session_start();
+            if (isset($_SESSION['num'])) {
+              $id = $_SESSION['num'];
             }
             ?>
 
@@ -50,13 +46,13 @@
                 if ($row['status'] == 'APPROVED') {
                   echo '<fieldset disabled>';
                   echo '<div class="row">';
-                  echo '<div class="col">';
+                  echo '<div class="col-md">';
                   echo '<div class="mb-3">';
                   echo '<label for="disabledTextInput" class="form-label">ID Number: </label>';
                   echo '<input type="number" id="disabledTextInput"  class="form-control" placeholder="' . $row['id_number'] . '" >';
                   echo '</div>';
                   echo '</div>';
-                  echo '<div class="col">';
+                  echo '<div class="col-md">';
                   echo '<div class="mb-3">';
                   echo '<label for="disabledTextInput" class="form-label">Full Name:</label>';
                   echo '<input type="text" id="disabledTextInput" class="form-control" placeholder="' . $row['full_name'] . '" >';
@@ -64,13 +60,13 @@
                   echo '</div>';
                   echo '</div>';
                   echo '<div class="row">';
-                  echo '<div class="col">';
+                  echo '<div class="col-md">';
                   echo '<div class="mb-3">';
                   echo '<label for="disabledTextInput" class="form-label">Gender:</label>';
                   echo '<input type="text" id="disabledTextInput" class="form-control" placeholder="' . $row['gender'] . '" >';
                   echo '</div>';
                   echo '</div>';
-                  echo '<div class="col">';
+                  echo '<div class="col-md">';
                   echo '<div class="mb-3">';
                   echo '<label for="disabledTextInput" class="form-label">Grade Level:</label>';
                   echo '<input type="text" id="disabledTextInput" class="form-control" placeholder="' . $row['grade_level'] . '" >';
@@ -78,13 +74,13 @@
                   echo '</div>';
                   echo '</div>';
                   echo '<div class="row">';
-                  echo '<div class="col">';
+                  echo '<div class="col-md">';
                   echo '<div class="mb-3">';
                   echo '<label for="disabledTextInput" class="form-label">Section:</label>';
                   echo '<input type="text" id="disabledTextInput" class="form-control" placeholder="' . $row['section'] . '" >';
                   echo '</div>';
                   echo '</div>';
-                  echo '<div class="col">';
+                  echo '<div class="col-md">';
                   echo '<div class="mb-3">';
                   echo '<label for="disabledTextInput" class="form-label">Status</label>';
                   echo '<input type="text" id="disabledTextInput" class="form-control" placeholder="APPROVED" style="color: green;" >';
@@ -92,7 +88,7 @@
                   echo '</div>';
                   echo '</div>';
                   echo '<div class="row">';
-                  echo '<div class="col">';
+                  echo '<div class="col-md">';
                   echo '<p class="text-center" style="color:red;">Cannot update profile, because your account has been approved by the admin, if you wish please approach the admin</p>';
                   echo '</div>';
                   echo '</div>';
@@ -163,6 +159,9 @@
 
       </div>
     </div>
+    <footer class="text-center" style="margin-top: 5em; margin-bottom: 3em;">
+      <p>Developed by the BSIT students: Dizon, Olayan, Castino 2025</p>
+    </footer>
   </div>
 
 

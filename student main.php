@@ -1,9 +1,14 @@
 <?php
-        if (isset($_GET['num'])) {
-          $idz = $_GET['num'];
+session_start();
+if (!isset($_SESSION['num'])) {
+  header('Location: logout student.php');
+  exit();
   
-        }
-        ?>
+}
+else{
+  $idz = $_SESSION['num'];
+}
+?>
 
 <!DOCTYPE html>
 <html lang="en">
@@ -60,15 +65,13 @@
           xhr.send(formD);
         }
       </script>
-      <div class="collapse navbar-collapse cartI" id="navbarSupportedContent">
-        <a href="add to cart page.php?num=<?php echo $_GET['num']; ?>"><i class="bi bi-cart icons" id="icons"></i></a><br>
+      <div class="collapse navbar-collapse cartI" id="navbarSupportedContent" style="margin-left: 1em;">
+        <a href="add to cart page.php"><i class="bi bi-cart icons" id="icons"></i></a><br>
         <span style="color:red;">
           <?php
           include('db.php');
 
-          if (isset($_GET['num'])) {
-            $id = $_GET['num'];
-            $sql = "select count(*) from carts where student_id = $id;";
+            $sql = "select count(*) from carts where student_id = $idz;";
 
             $result = $conn->query($sql);
 
@@ -77,16 +80,15 @@
                 echo $row['count(*)'];
               }
             }
-          }
+          
 
           ?></span>
-        <a href="notification user.php?num=<?php echo $_GET['num']; ?>"><i class="bi bi-bell icons" id="icons" style="margin-left: 10px;"></i></a>
+        <a href="notification user.php"><i class="bi bi-bell icons" id="icons" style="margin-left: 10px;"></i></a>
         <span style="color:red;"> <?php
                                   include('db.php');
 
-                                  if (isset($_GET['num'])) {
-                                    $id = $_GET['num'];
-                                    $sql = "select count(*) from user_notification where id_number = $id;";
+                              
+                                    $sql = "select count(*) from user_notification where id_number = $idz;";
 
                                     $result = $conn->query($sql);
 
@@ -95,20 +97,20 @@
                                         echo $row['count(*)'];
                                       }
                                     }
-                                  }
+                                  
 
                                   ?></span>
       
 
       <div class="collapse navbar-collapse pfp" id="navbarSupportedContent">
         <i class="bi bi-person-circle icons"></i>
-        <a href="profile (student).php?id=<?php echo urlencode($idz); ?>" style="text-decoration:none; margin-left:0.5em; color:white;"> Profile</a>  
+        <a href="profile (student).php" style="text-decoration:none; margin-left:0.5em; color:white;"> Profile</a>  
         
      
         </div><br>
        
       </div>
-      <a href="login_student.php" class="btn btn-danger">Logout</a>
+      <a href="logout student.php" class="btn btn-danger">Logout</a>
     </nav>
   </header>
 

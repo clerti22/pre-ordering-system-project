@@ -1,7 +1,14 @@
 <?php
-if (isset($_GET['num'])) {
-  $id_num = $_GET['num'];
-} ?>
+session_start();
+if (!isset($_SESSION['num'])) {
+  header('Location: logout.php');
+  exit();
+ 
+} 
+else{
+  $id_num = $_SESSION['num'];
+}
+?>
 
 <!DOCTYPE html>
 <html lang="en">
@@ -31,7 +38,7 @@ if (isset($_GET['num'])) {
       </div>
       <ul class="sidebar-nav">
         <li class="sidebar-item">
-          <a href="dashboard staff.php?id=<?php echo $id_num?>" class="sidebar-link">
+          <a href="dashboard staff.php?" class="sidebar-link">
             <i class="bi bi-grid-fill"></i>
             <span>Dashboard</span>
           </a>
@@ -45,20 +52,20 @@ if (isset($_GET['num'])) {
           </a>
         </li>
         <li class="sidebar-item">
-          <a href="orders staff.php?id=<?php echo $id_num ?>" class="sidebar-link">
+          <a href="orders staff.php" class="sidebar-link">
             <i class="bi bi-cart"></i>
             <span>Orders</span>
           </a>
         </li>
         <li class="sidebar-item">
-          <a href="#" class="sidebar-link">
+          <a href="profile (staff).php" class="sidebar-link">
             <i class="lni lni-user"></i>
             <span>Profile</span>
           </a>
         </li>
       </ul>
       <div class="sidebar-footer">
-        <a href="staff_login.php" class="sidebar-link">
+        <a href="logout.php" class="sidebar-link">
           <i class="lni lni-exit"></i>
           <span>Logout</span>
         </a>
@@ -120,9 +127,7 @@ if (isset($_GET['num'])) {
             <?php
             include('db.php');
 
-            if (isset($_GET['num'])) {
-              $id_num = $_GET['num'];
-            }
+           
             $sql = "SELECT product_id,product_name,product_price,product_qty,product_image from products_datas WHERE seller_id = $id_num";
 
             $result = $conn->query($sql);

@@ -24,7 +24,7 @@
 
     </div>
       <div class="row  d-flex justify-content-center align-items-center">
-        <div class="col-3 czz">
+        <div class="col-md-3 czz">
           <div class="card" >
             <img src="svg files/person-fill.svg" class="card-img-top" alt="...">
             <hr>
@@ -37,14 +37,14 @@
             </div>
           </div>
         </div>
-        <div class="col-3 czz">
+        <div class="col-md-3 czz">
           <div class="card" >
             <img src="svg files/person-fill.svg" class="card-img-top" alt="...">
             <hr>
             <div class="card-body">
-              <h5 class="card-title text-center">SMCC Personnel</h5>
+              <h5 class="card-title text-center">Staff Canteen</h5>
               <div class="d-flex justify-content-center align-items-center">
-                <a href="#" class="btn btn-primary text-center">Login</a>
+                <a href="staff_login.php" class="btn btn-primary text-center">Login</a>
               </div>
               
             </div>

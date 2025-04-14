@@ -1,3 +1,11 @@
+<?php
+session_start();
+if (isset($_SESSION['num'])) {
+  $id = $_SESSION['num'];
+}
+
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -16,10 +24,9 @@
       <div class="container-fluid">
         <img class="navbar-brand" src="png files\smcc logo.png" height="60">
         <div class="d-flex justify-content-center align-items-center pfp">
-          <a href="order page(student).php?num=<?php echo $_GET['num'] ?>"><i class="bi bi-bag-check" style="color:white; font-size: 1.7rem;" alt="go to your orders"></i></a><span style="margin-right:25px; color:red;">
+          <a href="order page(student).php"><i class="bi bi-bag-check" style="color:white; font-size: 1.7rem;" alt="go to your orders"></i></a><span style="margin-right:25px; color:red;">
             <?php
-             if (isset($_GET['num'])) {
-              $id = $_GET['num'];
+             
             include('db.php');
 
             $sql = "SELECT COUNT(*) from orders_history where id_number = $id";
@@ -31,13 +38,13 @@
                 echo $row['COUNT(*)'];
               }
             }
-          }
+          
             
             ?>
           </span>
           <i class="bi bi-person-circle icons pfpIcon"></i>
           
-          <a href="profile (student).php?id=<?php echo $_GET['num'] ?>" style="color: white; margin-left:4px;">Profile</a>
+          <a href="profile (student).php" style="color: white; margin-left:4px;">Profile</a>
         </div>
       </div>
     </nav>
@@ -46,7 +53,7 @@
   <div class="main">
     <div class="mainBody">
       <div class="container-fluid">
-        <a href="student main.php?num=<?php echo $_GET['num'] ?>" class="btn btn-danger">Go back to menu</a>
+        <a href="student main.php" class="btn btn-danger">Go back to menu</a>
         <h1 style="font-size: 4rem;"><strong>Notifications</strong></h1>
         <div class="tableSec">
           <table class="table table-striped">
@@ -65,8 +72,7 @@
             <tbody>
 
               <?php
-              if (isset($_GET['num'])) {
-                $id = $_GET['num'];
+              
                 include('db.php');
 
                   $sql = "select 
@@ -93,7 +99,7 @@
                     echo "</tr>";
                   }
                 }
-              }
+              
               ?>
             </tbody>
 

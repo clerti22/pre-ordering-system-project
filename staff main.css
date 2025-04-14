@@ -211,3 +211,8 @@ a.sidebar-link:hover {
       transform: translateY(0px) scale(1);
     }
   }
+
+  .table-container{
+    max-height: 40vh; /* Limiting the height to 50% of the viewport height */
+    overflow-y: auto;
+  }

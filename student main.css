@@ -50,7 +50,6 @@ body{
 }
 
 .pfp{
-  margin-right:30px;
   margin-left:30px;
 
 }
@@ -70,7 +69,7 @@ body{
 .proPr{
   float: right
   ;color: green; 
-  margin-left: 1em;
+
 }
 
 .addTo{
@@ -84,9 +83,7 @@ body{
   cursor: pointer;
 
 }
-.btn-danger{
-  margin-top: 1em;
-}
+
 
 
 @media screen and (max-width: 991px){
@@ -100,4 +97,23 @@ body{
     margin-top: 1em;
     margin-bottom: 1em;
   }
+  .btn-danger{
+    margin-top: 1em;
+  }
+  .icons{
+    font-size: 1.3em;
+  }
+}
+
+@media screen and (max-width: 400px) {
+  .cardx{
+    width: 21rem;
+  }
+}
+
+@media screen and (max-width:354px) {
+  .cardx{
+    width: 19rem;
+  }
+  
 }
