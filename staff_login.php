@@ -55,7 +55,7 @@
 
 <?php
 session_start();
-$servername = "127.0.0.1:3307";
+$servername = "localhost";
 $username = "root";
 $password = "";
 $dbname = "smcc_quickbiteDB";
@@ -71,7 +71,7 @@ if ($conn->connect_error) {
       $email = $_POST["emailz"];
       $pass = $_POST["passw"];
 
-      $sql = "SELECT staff_id FROM staff_datas WHERE email = '$email' AND password = '$pass';";
+      $sql = "SELECT staff_id FROM staff_datas WHERE email = '$email' AND password = '$pass' AND status_acc = 'APPROVED';";
       $result = $conn->query($sql);
 
       if ($result == FALSE) {
@@ -81,14 +81,11 @@ if ($conn->connect_error) {
       if ($result->num_rows > 0) {
         while ($row = $result->fetch_assoc()) {
            $_SESSION['num'] = $row["staff_id"];
-
-          echo "<script> console.log('$id_num'); </script>";
-          echo "<script> alert('Logged In!'); </script>";
           header("Location: staff main.php");
           exit();
         }
       } else {
-        echo "<script> alert('Wrong email or password'); </script>";
+        echo "<script> alert('Wrong id number,password or account is not approved yet,please approach admin'); </script>";
       }
     }
   }

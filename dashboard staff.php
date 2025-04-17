@@ -119,7 +119,7 @@ if(!isset($_SESSION['num'])){
 
 
       <div class="container-fluid">
-        <div class="row" style="margin-top:1em; margin-bottom:1em;">
+        <div class="row">
           <div class="col-md-4">
             <div class="totalUSers">
               <p>Total Income</p>

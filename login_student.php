@@ -55,7 +55,7 @@
 
 <?php
 session_start();
-$servername = "127.0.0.1:3307";
+$servername = "localhost";
 $username = "root";
 $password = "";
 $dbname = "smcc_quickbiteDB";
@@ -72,7 +72,7 @@ if ($conn->connect_error) {
     $pass = $_POST["passw"];
     $_SESSION['num'] = $id_num;
 
-    $sql = "SELECT id FROM shs_students_data WHERE id_number = $id_num AND password ='$pass';";
+    $sql = "SELECT id FROM shs_students_data WHERE id_number = $id_num AND password ='$pass' AND status = 'APPROVED';";
     $result = $conn->query($sql);
 
     if($result === FALSE){
@@ -84,7 +84,7 @@ if ($conn->connect_error) {
       exit();
     }
     else{
-      echo "<script> alert('Wrong id number or password'); </script>";
+      echo "<script> alert('Wrong id number,password or account is not approved yet,please approach admin'); </script>";
     }
   }
 }

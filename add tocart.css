@@ -66,6 +66,18 @@ body{
   margin: 1em;
 }
 
+.h1Text{
+  font-size: 4rem;
+}
+
+
+@media screen and (max-width:515px) {
+  .h1Text{
+    font-size: 3rem;
+  }
+  
+}
+
 
 @media screen and (max-width:405px) {
   .detailTxt{
