@@ -1,3 +1,4 @@
+<!-- users management from the admin by modifying status of the staff account -->
 <?php
 
 if($_SERVER["REQUEST_METHOD"] == "POST"){

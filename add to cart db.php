@@ -1,3 +1,5 @@
+
+<!-- backend of add to cart page -->
 <?php
 if($_SERVER["REQUEST_METHOD"] == "POST"){
   include('db.php');
@@ -9,7 +11,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
   $sellName = $_POST['sellName'];
   $seller_id = $_POST['sell_id'];
 
-
+  // this query will perfom to insert new cart added from user
   $sql = "INSERT INTO carts(student_id,product_name,product_price,qty,amount,product_img,seller_name,seller_id)VALUES($idNum,'$prName',$prPrice,1,$prPrice,'$prImg','$sellName',$seller_id);";
 
   if($conn->query($sql) == TRUE){

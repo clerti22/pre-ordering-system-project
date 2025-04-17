@@ -28,34 +28,34 @@ if (isset($_SESSION['num'])) {
             <span style="color: red;"><?php
                                       include('db.php');
 
-                                   
-                                        $sql = "select count(*) from carts where student_id = $id;";
 
-                                        $result = $conn->query($sql);
+                                      $sql = "select count(*) from carts where student_id = $id;";
 
-                                        if ($result->num_rows > 0) {
-                                          while ($row = $result->fetch_assoc()) {
-                                            echo $row['count(*)'];
-                                          }
+                                      $result = $conn->query($sql);
+
+                                      if ($result->num_rows > 0) {
+                                        while ($row = $result->fetch_assoc()) {
+                                          echo $row['count(*)'];
                                         }
-                                      
+                                      }
+
 
                                       ?></span>
             <a href="notification user.php"><i class="bi bi-bell" style="color: white;font-size:1.7rem;"></i></a>
             <span style="color: red;"><?php
                                       include('db.php');
 
-                                     
-                                        $sql = "select count(*) from user_notification where id_number = $id;";
 
-                                        $result = $conn->query($sql);
+                                      $sql = "select count(*) from user_notification where id_number = $id;";
 
-                                        if ($result->num_rows > 0) {
-                                          while ($row = $result->fetch_assoc()) {
-                                            echo $row['count(*)'];
-                                          }
+                                      $result = $conn->query($sql);
+
+                                      if ($result->num_rows > 0) {
+                                        while ($row = $result->fetch_assoc()) {
+                                          echo $row['count(*)'];
                                         }
-                                      
+                                      }
+
 
                                       ?></span>
           </div>
@@ -70,14 +70,14 @@ if (isset($_SESSION['num'])) {
     <div class="mainBody">
       <div class="container-fluid">
 
-      <a href="student main.php" class="btn btn-danger">Go back to menu</a>
+        <a href="student main.php" class="btn btn-danger">Go back to menu</a>
         <h1 style="font-size: 4rem;"><strong>Your Orders</strong></h1>
         <div class="tableSec">
           <table class="table table-striped">
             <thead>
               <tr>
                 <th scope="col" class="headC"></th>
-                <th ></th>
+                <th></th>
                 <th scope="col" class="headC">Product Name</th>
                 <th scope="col" class="headC">Status</th>
 
@@ -85,40 +85,13 @@ if (isset($_SESSION['num'])) {
             </thead>
             <tbody>
 
-
-              <!-- 
-              <tr>
-                <td></td>
-                <td><img src="png files\smcc logo.png" alt='' height='130' width='120'></td>
-                <td><span>Burger</span><br><span id='priceN" . $num . "'>&#8369; 20.00</span>
-                  <br><span id='priceN" . $num . "'>Quantity: 3</span> <br>
-                  <span style='font-style: italic; font-size: 10px; color: grey;'>Seller Name: SMCC </span><br>
-                  <span style='font-style: italic; font-size: 10px; color: grey;'> Date Ordered: 3/26/25 </span>
-                </td>
-                <td><span style="color:#2B33C6;font-weight:bold;">Ready to Pickup</span><br>
-                  <span style="color:red;">1:30:00 Left</span>
-                </td>
-              </tr>
-
-              <tr>
-                <td></td>
-                <td><img src="png files\smcc logo.png" alt='' height='130' width='120'></td>
-                <td><span>Burger</span><br><span id='priceN" . $num . "'>&#8369; 20.00</span>
-                  <br><span id='priceN" . $num . "'>Quantity: 3</span> <br>
-                  <span style='font-style: italic; font-size: 10px; color: grey;'>Seller Name: SMCC </span><br>
-                  <span style='font-style: italic; font-size: 10px; color: grey;'> Date Ordered: 3/26/25 </span>
-                </td>
-                <td><span style="color:green;font-weight:bold;">Completed</span><br>
-                 
-                </td>
-              </tr> -->
-
+              <!-- this displays the ordered items from the student, it has conditional statement to check if status its pending,waiting for pickup or order retrieved -->
               <?php
-            
 
-                include('db.php');
 
-                $sql = "SELECT 
+              include('db.php');
+
+              $sql = "SELECT 
                         id_row,
                         id_number,
                         product_name,
@@ -133,48 +106,47 @@ if (isset($_SESSION['num'])) {
                         FROM orders_history WHERE id_number = $id  ORDER BY id_row DESC;
                     ";
 
-                $result = $conn->query($sql);
+              $result = $conn->query($sql);
 
-                if ($result->num_rows > 0) {
-                  while ($row = $result->fetch_assoc()) {
-                    if ($row['status'] === "Pending") {
-                      echo "<tr>";
-                      echo "<td></td>";
-                      echo "<td><img src='" . $row['product_image'] . "' alt='' height='130' width='120'></td>";
-                      echo " <td><span>" . $row['product_name'] . "</span><br><span>&#8369; " . $row['amount'] . "</span>";
-                      echo " <br><span >Quantity: " . $row['product_qty'] . "</span> <br>";
-                      echo "  <span style='font-style: italic; font-size: 10px; color: grey;'>Seller Name: " . $row['seller_name'] . " </span><br>";
-                      echo " <span style='font-style: italic; font-size: 10px; color: grey;'> Date Ordered: ". $row['formatted_date']  ." </span>";
-                      echo "</td>";
-                      echo " <td><span style='color:orange;font-weight:bold;' class='status'>Pending</span><br>
+              if ($result->num_rows > 0) {
+                while ($row = $result->fetch_assoc()) {
+                  if ($row['status'] === "Pending") {
+                    echo "<tr>";
+                    echo "<td></td>";
+                    echo "<td><img src='" . $row['product_image'] . "' alt='' height='130' width='120'></td>";
+                    echo " <td><span>" . $row['product_name'] . "</span><br><span>&#8369; " . $row['amount'] . "</span>";
+                    echo " <br><span >Quantity: " . $row['product_qty'] . "</span> <br>";
+                    echo "  <span style='font-style: italic; font-size: 10px; color: grey;'>Seller Name: " . $row['seller_name'] . " </span><br>";
+                    echo " <span style='font-style: italic; font-size: 10px; color: grey;'> Date Ordered: " . $row['formatted_date']  . " </span>";
+                    echo "</td>";
+                    echo " <td><span style='color:orange;font-weight:bold;' class='status'>Pending</span><br>
                 </td>";
-                    } else if ($row['status'] == "Waiting for pickup") {
-                      echo "<tr>";
-                      echo "<td></td>";
-                      echo "<td><img src='" . $row['product_image'] . "' alt='' height='130' width='120'></td>";
-                      echo " <td><span>" . $row['product_name'] . "</span><br><span>&#8369; " . $row['amount'] . "</span>";
-                      echo " <br><span >Quantity: " . $row['product_qty'] . "</span> <br>";
-                      echo "  <span style='font-style: italic; font-size: 10px; color: grey;'>Seller Name: " . $row['seller_name'] . " </span><br>";
-                      echo " <span style='font-style: italic; font-size: 10px; color: grey;'> Date Ordered: 3/26/25 </span>";
-                      echo "</td>";
-                      echo " <td><span style='color:blue;font-weight:bold;' class='status'>Waiting for pickup</span><br>";
-                      echo "</td>";
-                    }
-                    else{
-                      echo "<tr>";
-                      echo "<td></td>";
-                      echo "<td><img src='" . $row['product_image'] . "' alt='' height='130' width='120'></td>";
-                      echo " <td><span>" . $row['product_name'] . "</span><br><span>&#8369; " . $row['amount'] . "</span>";
-                      echo " <br><span >Quantity: " . $row['product_qty'] . "</span> <br>";
-                      echo "  <span style='font-style: italic; font-size: 10px; color: grey;'>Seller Name: " . $row['seller_name'] . " </span><br>";
-                      echo " <span style='font-style: italic; font-size: 10px; color: grey;'> Date Ordered: ". $row['formatted_date']  ." </span>";
-                      echo "</td>";
-                      echo " <td><span style='color:green;font-weight:bold;' class='status'>Order Retrieved</span><br>
+                  } else if ($row['status'] == "Waiting for pickup") {
+                    echo "<tr>";
+                    echo "<td></td>";
+                    echo "<td><img src='" . $row['product_image'] . "' alt='' height='130' width='120'></td>";
+                    echo " <td><span>" . $row['product_name'] . "</span><br><span>&#8369; " . $row['amount'] . "</span>";
+                    echo " <br><span >Quantity: " . $row['product_qty'] . "</span> <br>";
+                    echo "  <span style='font-style: italic; font-size: 10px; color: grey;'>Seller Name: " . $row['seller_name'] . " </span><br>";
+                    echo " <span style='font-style: italic; font-size: 10px; color: grey;'> Date Ordered: 3/26/25 </span>";
+                    echo "</td>";
+                    echo " <td><span style='color:blue;font-weight:bold;' class='status'>Waiting for pickup</span><br>";
+                    echo "</td>";
+                  } else {
+                    echo "<tr>";
+                    echo "<td></td>";
+                    echo "<td><img src='" . $row['product_image'] . "' alt='' height='130' width='120'></td>";
+                    echo " <td><span>" . $row['product_name'] . "</span><br><span>&#8369; " . $row['amount'] . "</span>";
+                    echo " <br><span >Quantity: " . $row['product_qty'] . "</span> <br>";
+                    echo "  <span style='font-style: italic; font-size: 10px; color: grey;'>Seller Name: " . $row['seller_name'] . " </span><br>";
+                    echo " <span style='font-style: italic; font-size: 10px; color: grey;'> Date Ordered: " . $row['formatted_date']  . " </span>";
+                    echo "</td>";
+                    echo " <td><span style='color:green;font-weight:bold;' class='status'>Order Retrieved</span><br>
                 </td>";
-                    }
                   }
                 }
-              
+              }
+
               ?>
               </tr>
             </tbody>

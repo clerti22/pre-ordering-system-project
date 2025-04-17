@@ -1,6 +1,5 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -19,9 +18,9 @@
           <a href="order page(student).php"><i class="bi bi-bag-check" style="color:white;font-size:  2rem;" alt="go to your orders"></i></a>
           <span style="color:red;">
         <?php
+        //session start once it is logged in
         session_start();
           include('db.php');
-
           if (isset($_SESSION['num'])) {
             $id = $_SESSION['num'];
              $sql = "select count(*) from orders_history where id_number = $id;";
@@ -80,11 +79,14 @@
               </tr>
             </thead>
             <tbody>
+              <!-- this displays the cart added items  -->
               <?php
               if (isset($_SESSION['num'])) {
                 $id = $_SESSION['num'];
 
                 include('db.php');
+
+                // query of displaying the data
 
                 $sql = "select * from carts where student_id = $id;";
 
@@ -107,6 +109,7 @@
               ?>
               <input type="hidden" value="<?php echo $_SESSION['num']; ?>" id="inputID">
               <script>
+                //this delete cart function is combination of ajax, it sends data to the delete cart and response back to this file
                 let deleteCart = (idRow) => {
                   let formD = new FormData();
 
@@ -126,20 +129,22 @@
                       console.log(xhr.status);
                     }
                   }
-
                   xhr.send(formD);
                 }
-                let quantities = {};
 
+                
+                let quantities = {};//this variable is an object that recieves the quantity added or decreasing the quantity
+
+                //add qty function has 4 arguments to from number,price,quantity and id row
                 let addQty = (number, price, qty, idrow) => {
                   let fPrice = document.getElementById(`priceN${number}`);
 
-
+                  //if this will assign a property and quantity total to quantities variable
                   if (!quantities[number]) {
                     quantities[number] = qty;
                   }
 
-
+                  //increments quantity
                   quantities[number] += 1;
                   let formD = new FormData();
                   formD.append('idRow', idrow);
@@ -147,13 +152,13 @@
 
 
                   let xhr = new XMLHttpRequest();
-                  xhr.open('POST', 'qty.php', true);
+                  xhr.open('POST', 'qty.php', true);//backend file
 
 
                   xhr.onload = function() {
                     if (xhr.status == 200) {
 
-                      fPrice.innerHTML = "&#8369; " + xhr.responseText;
+                      fPrice.innerHTML = "&#8369; " + xhr.responseText
                     } else {
                       console.log(xhr.status);
                     }
@@ -165,6 +170,7 @@
 
                 };
 
+                //this decQty or decrease quantity is the same as add quantity but it decreases
                 let decQty = (number, price, qty, idrow) => {
                   quantities[number] -= 1;
                   let fPrice = document.getElementById(`priceN${number}`);
